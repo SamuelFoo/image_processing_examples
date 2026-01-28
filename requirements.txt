@@ -1,0 +1,10 @@
+imutils
+ipykernel
+ipywidgets
+opencv-contrib-python<4.13 # Qt fonts issue
+natsort
+numpy
+pandas
+matplotlib
+scikit-image
+scikit-learn
