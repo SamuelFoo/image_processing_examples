@@ -1,5 +1,7 @@
 import cv2
 
+from pkg.circles import get_circle_from_3_pts
+
 
 class SelectionWindow:
 
@@ -31,3 +33,45 @@ class SelectionWindow:
             self.selectionPts.append((x, y))
             cv2.circle(self.frame, (x, y), 2, (255, 255, 255), thickness=1)
             cv2.imshow(self.title, self.frame)
+
+
+class CircleSelectionWindow(SelectionWindow):
+
+    def __init__(self, title, frame):
+        super().__init__(title, frame)
+        self.min_points_left = 3
+        self.centerx, self.centery, self.radius = 0, 0, 0
+        self.frameCopy = self.frame.copy()
+        self.selected_points = []
+
+    def callback_func(self, event, x, y, flags, param):
+        if event == cv2.EVENT_LBUTTONDOWN or event == cv2.EVENT_RBUTTONDOWN:
+            self.min_points_left -= 1
+            self.selected_points.append((x, y))
+            cv2.circle(self.frame, (x, y), 2, (255, 0, 0), thickness=1)
+
+            if len(self.selected_points) >= 3:
+                x1, y1, x2, y2, x3, y3 = (
+                    *self.selected_points[-3],
+                    *self.selected_points[-2],
+                    *self.selected_points[-1],
+                )
+                self.centerx, self.centery, self.radius = get_circle_from_3_pts(
+                    (x1, y1), (x2, y2), (x3, y3)
+                )
+
+                # New frame to "remove" drawn circle in last frame
+                self.frame = self.frameCopy.copy()
+
+                cv2.circle(
+                    self.frame,
+                    (round(self.centerx), round(self.centery)),
+                    round(self.radius),
+                    (255, 0, 0),
+                    thickness=1,
+                )
+
+            cv2.imshow(self.title, self.frame)
+
+    def get_circle(self):
+        return (self.centerx, self.centery, self.radius)
