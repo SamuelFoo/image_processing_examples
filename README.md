@@ -8,19 +8,19 @@ Slides for the workshop can be found at [this link](https://1drv.ms/p/c/559558FE
 
 #### Watershed Segmentation
 
-![Detected colonies watershed](assets/C_1_watershed_835.png)
+<img src="assets/C_1_watershed_835.png" alt="Detected colonies watershed" width="420" />
 
 #### LOG
 
-![Detected colonies LOG](assets/detected_colonies_log.png)
+<img src="assets/detected_colonies_log.png" alt="Detected colonies LOG" width="420" />
 
 ### Circle Detection (RANSAC)
 
-![Funnel circle RANSAC result](assets/funnel_circle_RANSAC.png)
+<img src="assets/funnel_circle_RANSAC.png" alt="Funnel circle RANSAC result" width="420" />
 
 ### Template Matching and ReID
 
-![Pancake detections](assets/video_output_reid.gif)
+<img src="assets/video_output_reid.gif" alt="Pancake detections" width="420" />
 
 ### Perspective Transform
 
